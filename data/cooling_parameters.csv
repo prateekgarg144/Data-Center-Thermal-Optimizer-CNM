@@ -1,0 +1,4 @@
+cooling_unit,max_thermal_capacity_kw,cop_at_zero,slope_per_kw,ramp_limit_kw_per_step
+C1,25,5.5,0.025,12
+C2,25,5.4,0.024,12
+C3,25,5.5,0.025,12
