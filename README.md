@@ -85,6 +85,21 @@ pip install -r requirements-dashboard.txt
 python -m streamlit run dashboard.py
 ```
 
+## Immersion Lab Web Frontend & FastAPI
+
+Launch the distinctive immersion cooling lab web frontend and API:
+
+```bash
+# Terminal 1: Launch simulation backend (port 8000)
+python api/server.py
+# (Or with FastAPI + Uvicorn: uvicorn api.server:app --port 8000)
+
+# Terminal 2: Launch Vite React frontend (port 5173)
+cd frontend && npm install && npm run dev
+```
+
+Open `http://localhost:5173`. The frontend connects to the FastAPI engine for real-time simulation runs, with automatic fallback to static CSVs in `frontend/public/data/` if the backend is not running.
+
 Open the **Local URL** printed in the terminal (normally `http://localhost:8501`). The dashboard includes:
 - experiment controls for workload scenario, ambient temperature, workload multiplier, simulation horizon, and thermal bounds;
 - KPI overview and controller scorecard;

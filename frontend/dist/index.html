@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Center Thermal Optimizer</title>
+    <meta name="description" content="Mathematical modelling and algorithmic cooling allocation for a multi-rack data center." />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- KaTeX CDN stylesheet -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+
+    <style>
+      :root {
+        --bg: #0A0F14;
+        --surface: #111A22;
+        --surface-2: #17232D;
+        --border: #243542;
+        --text: #EAF0F3;
+        --muted: #8B9BA6;
+        --accent: #7FB8FF;
+        --accent-soft: #BBD9FF;
+        --heat: #FF6B4A;
+        --warm: #E6B86A;
+      }
+      html.light {
+        --bg: #F4F7F9;
+        --surface: #FFFFFF;
+        --surface-2: #E8EEF2;
+        --border: #D2DCE4;
+        --text: #0E1A23;
+        --muted: #5F7382;
+        --accent: #2C6FD1;
+        --accent-soft: #E0ECFB;
+        --heat: #D94426;
+        --warm: #B8852B;
+      }
+      body {
+        margin: 0;
+        background-color: var(--bg);
+        color: var(--text);
+        font-family: 'Instrument Sans', system-ui, sans-serif;
+        overflow-x: hidden;
+      }
+      #root { position: relative; z-index: 10; }
+      #bubble-canvas {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: 1;
+        pointer-events: none;
+        transition: opacity 0.5s ease;
+      }
+      /* Custom scrollbar */
+      ::-webkit-scrollbar { width: 7px; }
+      ::-webkit-scrollbar-track { background: var(--bg); }
+      ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+      /* Loading screen */
+      .loading-screen {
+        position: fixed; inset: 0; z-index: 10000;
+        background: var(--bg);
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+      }
+      .loading-screen.done { opacity: 0; visibility: hidden; pointer-events: none; }
+      .loading-tank {
+        width: 72px; height: 120px;
+        border: 1.5px solid var(--border);
+        border-radius: 6px 6px 12px 12px;
+        position: relative; overflow: hidden;
+        background: var(--surface);
+      }
+      .loading-fill {
+        position: absolute; bottom: 0; left: 0; right: 0;
+        background: var(--accent);
+        height: 0%;
+        animation: fillTank 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        opacity: 0.85;
+      }
+      @keyframes fillTank {
+        0% { height: 0%; }
+        100% { height: 100%; }
+      }
+      .loading-label {
+        font-family: 'JetBrains Mono', monospace;
+        color: var(--accent);
+        font-size: 0.85rem;
+        margin-top: 1rem;
+        letter-spacing: 0.05em;
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-CDe0f2tP.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BQ4Yfa9r.css">
+  </head>
+  <body>
+    <canvas id="bubble-canvas" aria-hidden="true"></canvas>
+    <div id="loading-screen" class="loading-screen">
+      <div class="loading-tank">
+        <div id="loading-fill" class="loading-fill"></div>
+      </div>
+      <div class="loading-label">INITIALIZING LAB...</div>
+    </div>
+    <div id="root"></div>
+  </body>
+</html>
