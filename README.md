@@ -2,7 +2,7 @@
 
 A Python simulation project for studying energy-efficient cooling allocation across a small multi-rack data center.
 
-## What it does
+## What it does E9Z96F
 
 - Converts rack utilization into electrical power and approximate server heat.
 - Simulates rack-zone temperatures using a discrete-time lumped thermal model.
